@@ -5,21 +5,20 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ServerService{
-
+  arr=[];
   constructor(private http:Http){}
-    storeServers(servers: any[]){
-      //   const myHeaders = new Headers({'Content-Type': 'application/json'});
-      //   return this.http.post('https://ng-http-4bca8.firebaseio.com/data.json', servers,
-      //   {headers: myHeaders}
-      // );
+    storeServers(item){
+      this.arr = [];
+      this.arr.push(item);
+
         const myHeaders = new Headers({'Content-Type': 'application/json'});
-        return this.http.put('https://ng-http-4bca8.firebaseio.com/data.json', servers,
+        return this.http.post('http://localhost:8888/AngularJS/servers/action.php', this.arr,
         {headers: myHeaders}
       );
     }
 
     getServers(){
-      return this.http.get('https://ng-http-4bca8.firebaseio.com/data.json')
+      return this.http.get('http://localhost:8888/AngularJS/servers/read.php')
       .map(
         ( response: Response ) => {
           const data = response.json();

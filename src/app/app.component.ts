@@ -15,18 +15,14 @@ export class AppComponent {
   servers:any[] = [];
   appName = this.serverService.getAppName();
 
-  // onSave(){
-  //   this.serverService.storeServers(this.servers)
-  //   .subscribe(
-  //     (response) => console.log(response),
-  //     (error) => console.log(error)
-  //   );
-  // }
 
   onGet(){
     this.serverService.getServers()
     .subscribe(
-      (servers: any[]) => this.servers = servers,
+      (servers: any[]) => {
+        this.servers = servers;
+        console.log(this.servers);
+      },
       (error) => console.log(error)
     );
   }
@@ -35,9 +31,8 @@ export class AppComponent {
     this.servers.push({
       name: name,
       capacity: 50,
-      id: this.generateId()
     });
-    this.serverService.storeServers(this.servers)
+    this.serverService.storeServers(this.servers.slice(-1)[0])
     .subscribe(
       (response) => console.log(response),
       (error) => console.log(error)
